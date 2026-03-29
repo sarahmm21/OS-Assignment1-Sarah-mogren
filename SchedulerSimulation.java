@@ -29,6 +29,7 @@ class Process implements Runnable {
     private int burstTime; // Total time the process requires to complete (in milliseconds)
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
+
     // Feature 1: add Process Priority
     private int priority;
 
@@ -77,6 +78,7 @@ class Process implements Runnable {
         }
 
         remainingTime -= runTime; // Deduct the run time from the remaining time
+
         int overallProgress = (int) (((double) (burstTime - remainingTime) / burstTime) * 100);
         String overallProgressBar = createProgressBar(overallProgress, 20);
 
@@ -152,6 +154,7 @@ class Process implements Runnable {
     public boolean isFinished() {
         return remainingTime <= 0;
     }
+
 }
 
 public class SchedulerSimulation {
@@ -297,6 +300,9 @@ public class SchedulerSimulation {
         System.out.println(Colors.BOLD + Colors.BRIGHT_GREEN +
                 "╚════════════════════════════════════════════════════════════════════════════════╝" +
                 Colors.RESET + "\n");
+
+        // feauter 2 display context switch
+        System.out.println("Total context switches: " + contextSwitches);
     }
 
     // Method to add a process to the queue and map, while printing a "ready"
@@ -318,7 +324,6 @@ public class SchedulerSimulation {
                 Colors.RESET + Colors.BLUE + " added to ready queue" + Colors.RESET +
                 " │ Burst time: " + Colors.YELLOW + process.getBurstTime() + "ms" +
                 Colors.RESET + " | priority: " + Colors.BRIGHT_YELLOW + process.getPriority());
-        // feauter 2 display context switch
-        System.out.println("Total context switches: " + contextSwitches);
+
     }
 }

@@ -33,6 +33,10 @@ class Process implements Runnable {
     // Feature 1: add Process Priority
     private int priority;
 
+    // Feature 3: Waiting Time (using creationTime)
+    private long creationTime;
+    private long waitingTime;
+
     // Constructor to initialize the process with name, burst time, and time quantum
     public Process(String name, int burstTime, int timeQuantum) {
         this.name = name;
@@ -41,6 +45,9 @@ class Process implements Runnable {
         this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
         // Feature 1: assign priorty
         this.priority = 1 + new Random().nextInt(5);
+        // feature 3: initialize
+        this.creationTime = System.currentTimeMillis();
+        this.waitingTime = 0;
 
     }
 
@@ -78,6 +85,9 @@ class Process implements Runnable {
         }
 
         remainingTime -= runTime; // Deduct the run time from the remaining time
+
+        // feature 3: update waiting time
+        waitingTime = System.currentTimeMillis() - creationTime;
 
         int overallProgress = (int) (((double) (burstTime - remainingTime) / burstTime) * 100);
         String overallProgressBar = createProgressBar(overallProgress, 20);
@@ -153,6 +163,11 @@ class Process implements Runnable {
     // Check if the process has finished (i.e., no remaining time)
     public boolean isFinished() {
         return remainingTime <= 0;
+    }
+
+    // feature 3 : getter for waiting time
+    public long getWaitingTime() {
+        return waitingTime;
     }
 
 }
@@ -303,6 +318,15 @@ public class SchedulerSimulation {
 
         // feauter 2 display context switch
         System.out.println("Total context switches: " + contextSwitches);
+
+        // Feature 3: Display waiting time summary
+        System.out.println("\nProcess Summary:");
+        for (Process p : processMap.values()) {
+            System.out.println(p.getName() +
+                    " | Burst: " + p.getBurstTime() +
+                    " | Waiting: " + p.getWaitingTime() + "ms");
+        }
+
     }
 
     // Method to add a process to the queue and map, while printing a "ready"

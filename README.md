@@ -453,7 +453,7 @@ Student Name: [Your Full Name]
 Student ID: [Your Student ID]
 GitHub Username: [your-github-username]
 Repository Link: https://github.com/[your-username]/OS-Assignment1-[YourName]
-Video Link: [Google Drive link - make sure it's accessible to anyone with the link]
+Video Link: [https://drive.google.com/drive/folders/1PbkkBoXTXH_RWSvwqycyeYpdotXW3kLn?usp=sharing]
 Date Submitted: [Submission Date]
 ```
 
